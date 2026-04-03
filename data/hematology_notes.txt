@@ -1,0 +1,20 @@
+Anemia Overview:
+Anemia is a hematological disorder characterized by a decrease in red blood cells or hemoglobin levels. It reduces the oxygen-carrying capacity of blood. Common causes include iron deficiency, vitamin B12 deficiency, chronic disease, and genetic disorders.
+
+Iron Deficiency Anemia:
+This type of anemia occurs when the body lacks sufficient iron to produce hemoglobin. It is commonly caused by poor diet, chronic blood loss, or absorption issues. Treatment typically involves iron supplementation and dietary changes.
+
+Leukemia Overview:
+Leukemia is a malignancy of blood-forming tissues, including bone marrow and lymphatic system. It results in uncontrolled proliferation of abnormal white blood cells that do not function properly.
+
+Acute vs Chronic Leukemia:
+Acute leukemia progresses rapidly and requires immediate treatment, while chronic leukemia develops more slowly and may not show symptoms early.
+
+Lymphoma Overview:
+Lymphoma is a group of blood cancers that affect lymphocytes. Hodgkin lymphoma is characterized by Reed-Sternberg cells, while Non-Hodgkin lymphoma includes a diverse group of lymphoid malignancies.
+
+Hemophilia:
+Hemophilia is a genetic bleeding disorder caused by deficiency of clotting factors VIII or IX. It leads to prolonged bleeding after injuries and spontaneous bleeding in severe cases.
+
+Sickle Cell Disease:
+This inherited disorder is caused by a mutation in hemoglobin, producing sickle-shaped red blood cells that can block blood flow and cause pain crises.

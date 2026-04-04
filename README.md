@@ -1,84 +1,218 @@
-# Hematology AI
+# 🩸 Hematology AI Assistant
 
-Projet de démonstration pour la recherche et la génération assistée par récupération (RAG) appliquée à des notes d'hématologie.
-
-## Description
-
-Ce dépôt contient des scripts simples pour ingérer des données textuelles médicales, construire/charger une base de vecteurs (Chroma), et effectuer des requêtes / génération de réponses.
-
-## Contenu principal
-
-- `app.py` : point d'entrée de l'application (si présent pour démarrage web ou CLI).
-- `ingest.py` : script d'ingestion des fichiers depuis `data/` vers la base de vecteurs.
-- `query.py` : script d'interrogation / interface de test pour la base de connaissances.
-- `rag.py` : logique RAG (récupération + génération), utilitaires d'assemblage de prompts.
-- `data/` : corpus source (`hematology_notes.txt`, `hematology_qa.csv`, `training_set.csv`).
-- `vector_db/` : stockage Chroma (ex. `chroma.sqlite3` et sous-dossiers de vecteurs).
-
-## Prérequis
-
-- Python 3.10+ recommandé
-- Virtualenv ou venv
-- Bibliothèques usuelles : `chromadb`, `openai` (ou autre fournisseur LLM), `langchain`, `pandas`, `tqdm`.
-
-Si le fichier `requirements.txt` est fourni, installez-le :
-
-```powershell
-python -m venv .venv
-# Windows PowerShell
-& .\.venv\Scripts\Activate.ps1
-# macOS / Linux
-source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-Sinon, installez manuellement les dépendances principales :
-
-```bash
-pip install chromadb openai langchain pandas tiktoken tqdm
-```
-
-## Utilisation
-
-1. Préparer les données dans le dossier `data/` (fichiers texte ou CSV).
-2. Construire/mettre à jour la base de vecteurs :
-
-```bash
-python ingest.py
-```
-
-3. Interroger la base / tester RAG :
-
-```bash
-python query.py
-```
-
-4. Lancer l'application (si `app.py` implémente un serveur ou UI) :
-
-```bash
-python app.py
-```
-
-## Détails
-
-- La base de vecteurs Chroma est stockée dans `vector_db/`.
-- Adaptez les clés d'API (ex. OpenAI) via des variables d'environnement ou un fichier de configuration selon l'implémentation du projet.
-
-## Dépannage
-
-- Si l'ingestion échoue, vérifiez le format des fichiers dans `data/` et l'accès en écriture à `vector_db/`.
-- Pour des erreurs liées aux clés d'API, exportez correctement la variable (ex. `OPENAI_API_KEY`).
-
-## Contribuer
-
-Signalez des problèmes via les issues et soumettez des pull requests pour des améliorations (ingestion, qualité des prompts, sécurité des données).
-
-## License
-
-À renseigner selon vos besoins (ex. MIT, Apache-2.0).
+An AI-powered assistant designed to answer questions about hematology diseases using a **Retrieval-Augmented Generation (RAG)** architecture.
+This project runs **fully locally**, without requiring paid APIs.
 
 ---
 
-Si vous voulez, je peux :
-- générer un `requirements.txt` précis en scannant les imports,
-- ajouter des exemples d'usage détaillés ou des extraits de commandes pour Windows.
+## 🚀 Features
+
+* 💬 Answer general hematology questions (anemia, leukemia, lymphoma, etc.)
+* 🧠 Explain diseases (symptoms, causes, diagnosis, treatment)
+* 🔍 Retrieve relevant medical knowledge from custom datasets (CSV, TXT)
+* 📄 Support structured medical data ingestion
+* 🤖 Use local embeddings and vector database for semantic search
+* 🔐 Fully local setup (no OpenAI API key required)
+
+---
+
+## 🏗️ Architecture
+
+This project follows a **RAG pipeline**:
+
+```
+User Question
+     ↓
+Embedding (HuggingFace)
+     ↓
+Vector Database (Chroma)
+     ↓
+Retriever (top-k relevant chunks)
+     ↓
+LLM (Ollama - local model)
+     ↓
+Generated Answer
+```
+
+---
+
+## 🧩 How It Works
+
+1. **Data Ingestion (`ingest.py`)**
+
+   * Loads medical data from CSV/TXT files
+   * Splits text into smaller chunks
+   * Converts text into embeddings
+   * Stores embeddings in a vector database (Chroma)
+
+2. **Vector Database (`vector_db/`)**
+
+   * Stores text + embeddings
+   * Enables fast semantic search
+
+3. **Query System (`query.py`)**
+
+   * Converts user question into embeddings
+   * Retrieves most relevant chunks
+   * Sends them to a local LLM
+   * Generates a contextual answer
+
+---
+
+## 🛠️ Tech Stack
+
+* **Python**
+* **LangChain**
+* **ChromaDB** (vector database)
+* **HuggingFace Embeddings**
+* **Ollama** (local LLM: phi / tinyllama / etc.)
+
+---
+
+## 📂 Project Structure
+
+```
+hematology-ai/
+│
+├── data/              # Medical datasets (CSV, TXT)
+├── vector_db/         # Vector database (auto-generated)
+├── ingest.py          # Data ingestion pipeline
+├── query.py           # Question-answering system
+└── README.md          # Project documentation
+```
+
+---
+
+## ⚙️ Installation
+
+### 1. Clone the repository
+
+```
+git clone https://github.com/your-username/hematology-ai.git
+cd hematology-ai
+```
+
+---
+
+### 2. Create environment
+
+```
+conda create -n hematology-ai python=3.10
+conda activate hematology-ai
+```
+
+---
+
+### 3. Install dependencies
+
+```
+pip install langchain langchain-community langchain-huggingface chromadb sentence-transformers
+```
+
+---
+
+### 4. Install Ollama
+
+Download and install:
+
+👉 https://ollama.com/download
+
+---
+
+### 5. Run a lightweight model
+
+```
+ollama run phi
+```
+
+---
+
+## ▶️ Usage
+
+### Step 1 — Ingest data
+
+```
+python ingest.py
+```
+
+This will:
+
+* Process your dataset
+* Create the `vector_db/`
+
+---
+
+### Step 2 — Ask questions
+
+```
+python query.py
+```
+
+Example queries:
+
+```
+What is anemia?
+What are the symptoms of leukemia?
+Difference between lymphoma and leukemia?
+```
+
+---
+
+## 🧪 Example
+
+**Input:**
+
+```
+What is anemia?
+```
+
+**Output:**
+
+```
+Anemia is a medical condition characterized by a انخفاض in hemoglobin levels...
+```
+
+---
+
+## ⚠️ Disclaimer
+
+This project is for **educational purposes only**.
+It does **not provide medical diagnosis or professional healthcare advice**.
+
+---
+
+## 🚀 Future Improvements
+
+* 💬 Streamlit chatbot UI
+* 📚 Support for PDF medical books
+* 📊 Add citations (source documents)
+* 🧠 Improve medical prompting
+* 🔍 Hybrid search (semantic + keyword)
+* 🧾 Structured outputs (Symptoms / Causes / Treatment)
+
+---
+
+## 👩‍💻 Author
+
+**Amina Jebari**
+Engineering Student – AI & Data
+
+---
+
+## ⭐ Contributing
+
+Contributions are welcome!
+Feel free to fork the project and submit a pull request.
+
+---
+
+## 📌 Key Concept
+
+> This project does NOT train a model.
+> It uses **Retrieval-Augmented Generation (RAG)** to combine:
+>
+> * Search (vector database)
+> * Understanding (embeddings)
+> * Generation (LLM)
+
+---

@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+.env
+.env.local
+
+# Editor directories and IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# Test / coverage
+.pytest_cache/
+.coverage
+
+# Type check / caches
+.mypy_cache/
+.ropeproject/
+
+# Jupyter
+.ipynb_checkpoints
+
+# Chroma vector DB and other DB files
+vector_db/
+*.sqlite3
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets and keys
+secrets.json
+*.pem
+*.key
